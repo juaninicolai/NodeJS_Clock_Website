@@ -10,11 +10,6 @@ const nytProxy = createProxyMiddleware({
 app.use(express.json());
 app.use("/svc", nytProxy);
 app.get("/", (req, res) => {
-  const page = req.query.page;
-  const limit = req.query.limit;
-
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
   res.sendFile(__dirname + "/public/index.html");
 });
 
