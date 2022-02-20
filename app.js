@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const port = process.env.PORT || 8080;
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const nytProxy = createProxyMiddleware({
   target: "https://api.nytimes.com",
@@ -17,6 +18,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.listen(8080, () => {
+app.listen(port, () => {
   console.log("This port runs on port 8080");
 });
