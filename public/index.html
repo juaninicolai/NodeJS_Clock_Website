@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Machine</title>
+  </head>
+  <body style="text-align:center">
+    <h1>Welcome to the Time Machine website</h1>
+    <h2>Please enter a date to find what happened at that time!</h2>
+    <form>
+      <input type="text" id="year" placeholder="Enter year" />
+      <input type="text" id="month" placeholder="Enter month number" />
+      <input type="submit" />
+    </form>
+    <br><br>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Add font awesome icons to buttons (note that the fa-spin class rotates the icon) -->
+    <button style="visibility: hidden;" class="buttonload">
+  <i class="fa fa-spinner fa-spin"></i>Loading</button>
+
+    <div id="articles"></div>
+
+    <script>
+      const body = document.querySelector('body')
+      const form = document.querySelector('form')
+
+      form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const loadingBtn = document.querySelector(".buttonload")
+          loadingBtn.style.visibility = 'visible'
+          let year = document.getElementById('year').value
+          let month = document.getElementById("month").value
+          fetch(`http://localhost:8080/svc/archive/v1/${year}/${month}.json?api-key=N7hCzSOJdXYZ8dPcfEyz0PWrA5dk0Sat`)
+              .then((res) => {
+                  return res.json();
+              })
+              .then((res) => {
+                  const div = document.querySelector('#articles')
+                  res.response.docs.forEach((article) => {
+                  const aTag = document.createElement('a')
+                  aTag.style.display = 'block'  
+                  aTag.textContent = article.abstract;
+                  aTag.setAttribute("href", article.web_url)
+                  aTag.setAttribute("target","_blank")
+                  div.appendChild(aTag)
+                  const br = document.createElement("br")
+                  div.appendChild(br)
+                  loadingBtn.style.visibility = "hidden"
+                  })
+              })
+          })
+    </script>
+  </body>
+</html>
