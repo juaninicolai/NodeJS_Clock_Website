@@ -32,7 +32,7 @@
           loadingBtn.style.visibility = 'visible'
           let year = document.getElementById('year').value
           let month = document.getElementById("month").value
-          fetch(`https://localhost:8080/svc/archive/v1/${year}/${month}.json?api-key=N7hCzSOJdXYZ8dPcfEyz0PWrA5dk0Sat`)
+          fetch(`https://timemachine.herokuapp.com/svc/archive/v1/${year}/${month}.json?api-key=N7hCzSOJdXYZ8dPcfEyz0PWrA5dk0Sat`)
               .then((res) => {
                   return res.json();
               })
