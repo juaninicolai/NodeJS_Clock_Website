@@ -13,6 +13,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.listen(port, () => {
-  console.log("This port runs on port 8080");
+app.listen(PORT, () => {
+  console.log("This port runs on port", PORT);
 });
